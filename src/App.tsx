@@ -11,30 +11,31 @@ import routerBindings, {
     NavigateToResource,
     UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
-import dataProvider from "@refinedev/simple-rest";
+import { customDataProvider } from "./rest-data-provider";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { MuiInferencer } from "@refinedev/inferencer/mui";
+import { CustomItemList } from "pages/items/list";
 
 const App: React.FC = () => {
     return (
-        <ThemeProvider theme={RefineThemes.Blue}>
+        <ThemeProvider theme={RefineThemes.Red}>
             <CssBaseline />
             <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
             <RefineSnackbarProvider>
                 <BrowserRouter>
                     <Refine
                         routerProvider={routerBindings}
-                        dataProvider={dataProvider(
-                            "https://api.fake-rest.refine.dev",
+                        dataProvider={customDataProvider(
+                            "http://127.0.0.1:5000",   // Local Fastify running server must be used
                         )}
                         notificationProvider={notificationProvider}
                         resources={[
                             {
-                                name: "blog_posts",
-                                list: "/blog-posts",
-                                show: "/blog-posts/show/:id",
-                                create: "/blog-posts/create",
-                                edit: "/blog-posts/edit/:id",
+                                name: "items",
+                                list: "/items",
+                                show: "/items/:id",
+                                create: "/items/create",
+                                edit: "/items/edit/:id",
                             },
                         ]}
                         options={{
@@ -53,18 +54,19 @@ const App: React.FC = () => {
                                 <Route
                                     index
                                     element={
-                                        <NavigateToResource resource="blog_posts" />
+                                        <NavigateToResource resource="items" />
                                     }
                                 />
-                                <Route path="blog-posts">
-                                    <Route index element={<MuiInferencer />} />
+                                <Route path="items">
+                              
+                                    <Route index element={<CustomItemList />} /> {/**   our own custom item listing component */}
                                     <Route
-                                        path="show/:id"
-                                        element={<MuiInferencer />}
+                                        path=":id"
+                                        element={<MuiInferencer />}   /** Let the inferencer infer and use the generated component based on API response from the data provider */
                                     />
                                     <Route
                                         path="edit/:id"
-                                        element={<MuiInferencer />}
+                                        element={<MuiInferencer />} 
                                     />
                                     <Route
                                         path="create"
