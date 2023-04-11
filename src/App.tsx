@@ -1,4 +1,4 @@
-import { AuthBindings, Authenticated, Refine } from "@refinedev/core";
+import { Authenticated, Refine } from "@refinedev/core";
 import {
     ThemedLayout,
     ErrorComponent,
@@ -16,8 +16,7 @@ import routerBindings, {
 import { customDataProvider } from "./rest-data-provider";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { MuiInferencer } from "@refinedev/inferencer/mui";
-import { CustomItemList } from "pages/items/list";
-import { logInWithEmailAndPassword } from "auth/firebase";
+// import { CustomItemList } from "pages/items/list";
 import { firebaseAuthProvider } from "auth/firebaseAuthProvider";
 import { CustomBlogPostsList } from "pages/blog-posts/list";
 

@@ -87,6 +87,7 @@ export const CustomBlogPostsList = () => {
                         <>
                             <EditButton hideText recordItemId={row.id} />
                             <ShowButton hideText recordItemId={row.id} />
+                            <DeleteButton hideText recordItemId={row.id}/>
                         </>
                     );
                 },
@@ -95,6 +96,7 @@ export const CustomBlogPostsList = () => {
                 minWidth: 80,
             },
         ],
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [categoryData?.data],
     );
 
